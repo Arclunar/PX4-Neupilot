@@ -67,13 +67,15 @@ RUN apt install -y software-properties-common \
     && rm /tmp/ros2-apt-source.deb \
     && apt update
 
-RUN apt install -y ros-humble-ros-base \
+RUN apt install -y ros-humble-ros-base ros-humble-ros-gzharmonic \
     && echo "source /opt/ros/humble/setup.bash" >> ${HOME}/.bashrc
 
 
 WORKDIR /root/workspace/px4_gazebo_harmonic
 COPY . /root/workspace/px4_gazebo_harmonic
 RUN bash install-dds-agent.bash
+
+
 
 RUN make px4_sitl_default
 ENV PATH="/root/workspace/px4_gazebo_harmonic/Tools:$PATH"
