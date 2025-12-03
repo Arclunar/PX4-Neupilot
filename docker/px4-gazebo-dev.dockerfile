@@ -42,7 +42,8 @@ RUN wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pk
 RUN apt update && apt install -y \
     vim \
     python3-pip python3-venv \
-    curl lsb-release gnupg wget
+    curl lsb-release gnupg wget \
+    sudo
 
 RUN apt update && apt install -y locales \
     && locale-gen en_US.UTF-8 \
@@ -61,15 +62,25 @@ RUN apt install -y software-properties-common \
 RUN apt install -y ros-humble-ros-base ros-humble-ros-gzharmonic &&\
     echo "source /opt/ros/humble/setup.bash" >> ${HOME}/.bashrc
 
+# Install just command runner
+RUN wget -qO - 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null && \
+    echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)" | tee /etc/apt/sources.list.d/prebuilt-mpr.list && \
+    apt update && \
+    apt install -y just
 
-WORKDIR /root/workspace/px4_gazebo_harmonic
-COPY . /root/workspace/px4_gazebo_harmonic
-RUN bash install-dds-agent.bash
+WORKDIR /root
+RUN git clone https://github.com/Arclunar/Micro-XRCE-DDS-Agent.git --depth 1
 
+# Build and install Micro-XRCE-DDS-Agent
+WORKDIR /root/Micro-XRCE-DDS-Agent
+RUN cmake -Bbuild -S. \
+    && cmake --build build -j $(nproc) \
+    && cmake --install build \
+    && ldconfig /usr/local/lib/
 
+RUN echo "export PATH=/root/PX4-Neupilot/Tools:$PATH" >> ${HOME}/.bashrc
 
-RUN make px4_sitl_default
-ENV PATH="/root/workspace/px4_gazebo_harmonic/Tools:$PATH"
+# ENV PATH="/root/workspace/px4_gazebo_harmonic/Tools:$PATH"
 # FROM osrf/ros:humble-desktop AS ros-deps
 
 # WORKDIR /plugins
