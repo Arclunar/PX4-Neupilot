@@ -19,15 +19,19 @@ git clone https://github.com/Arclunar/PX4-Neupilot.git --recursive --depth 1
 
 ### 🎯 Docker Deployment
 #### 0. Adjust proxy settings
-Before building the docker image, you need to change the proxy settings in the dockerfile : ``docker/px4-simulation.dockerfile``
+See https://docs.docker.com/engine/cli/proxy/, in china, you have to
+modify the `~/.docker/config.json` file as in
+```yaml
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "http://proxy.example.com:3128", # e.g. http://127.0.0.1:7890
+     "httpsProxy": "https://proxy.example.com:3129", # e.g. http://127.0.0.1:7890
+     "noProxy": "*.test.example.com,.example.org,127.0.0.0/8" # e.g. "localhost,127.0.0.1,.daocloud.io"
+   },
+}
 ```
-ENV http_proxy=http://127.0.0.1:7890 \
-    https_proxy=http://127.0.0.1:7890 \
-    HTTP_PROXY=http://127.0.0.1:7890 \
-    HTTPS_PROXY=http://127.0.0.1:7890 \
-    no_proxy=localhost,127.0.0.1,::1 \
-    NO_PROXY=localhost,127.0.0.1,::1
-```
+
 #### 1. Build the docker image
 ```bash
 just build-px4

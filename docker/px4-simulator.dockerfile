@@ -9,15 +9,6 @@ LABEL maintainer="Steven Cheng <zhenghw23@foxmail.com>"
 # Some QT-Apps/Gazebo don't not show controls without this
 ENV QT_X11_NO_MITSHM=1
 
-# add proxy to avoid network issue when building docker image in China
-ENV http_proxy=http://127.0.0.1:7890 \
-    https_proxy=http://127.0.0.1:7890 \
-    HTTP_PROXY=http://127.0.0.1:7890 \
-    HTTPS_PROXY=http://127.0.0.1:7890 \
-    no_proxy=localhost,127.0.0.1,::1 \
-    NO_PROXY=localhost,127.0.0.1,::1
-
-
 RUN wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
 	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
 	&& apt-get update \
