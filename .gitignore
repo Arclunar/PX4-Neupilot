@@ -1,4 +1,5 @@
 *.dSYM
+.vscode/
 *.o
 *.gch
 *.pyc

@@ -104,10 +104,6 @@ void ThrustAccControl::parameters_updated() {
   resetFilters();
 }
 
-float ThrustAccControl::get_u_inverse_model(float target_at) {
-  // TODO check max and min
-  return target_at / (float)(9.8) * (float)(0.62063);
-}
 
 void ThrustAccControl::Run() {
   if (should_exit()) {

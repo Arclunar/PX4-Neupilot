@@ -11,7 +11,7 @@
 
 *A neural control-enhanced PX4 autopilot system with integrated Gazebo Harmonic simulation*
 
-[Quick Start](#-quick-start) • [Development](#-development-guide) • [Documentation](#-documentation)
+[Quick Start](#-quick-start) • [Documentation](#-documentation)
 
 ---
 
@@ -32,7 +32,7 @@
 ### 📦 Clone the Repository
 
 ```bash
-git clone https://github.com/Arclunar/PX4-Neupilot.git --recursive --depth 1
+git clone https://github.com/WarriorHanamy/PX4-Neupilot.git --recursive --depth 1
 cd PX4-Neupilot
 ```
 
@@ -77,107 +77,12 @@ Inside the container, launch a quadrotor simulation with Micro-XRCE-DDS agent:
 runsim.sh 2
 ```
 
-### 🔗 ROS 2 Integration
-
-For ROS 2 communication and examples, see:
-👉 [PX4-ROS2-Bridge](https://github.com/Arclunar/PX4-ROS2-Bridge/tree/main#)
-
 ---
 
-## 🛠️ Development Guide
+## 👥 Contributors
 
-> **For active development with live code reloading**
-
-### Setup Development Environment
-
-The development container mounts your local workspace for instant code updates without rebuilding.
-
-#### 1️⃣ Build Development Image
-
-```bash
-just build-dev
-```
-
-This builds from `docker/px4-gazebo-dev.dockerfile` .
-#### 2️⃣ Run Development Container
-
-```bash
-just run-dev
-```
-
-
-#### 3️⃣ Enter the Container
-
-```bash
-just enter-dev
-```
-
-Or manually:
-```bash
-docker exec -it --user px4 px4-gazebo-harmonic-dev /bin/bash
-```
-
-#### 4️⃣ Build PX4
-
-Inside the container:
-```bash
-just make
-# or
-make px4_sitl_default
-```
-
-### 🔧 Available Commands
-
-| Command | Description |
-|---------|-------------|
-| `just build-px4` | Build production Docker image |
-| `just run-px4` | Run production container (ephemeral) |
-| `just enter-px4` | Enter running production container |
-| `just build-dev` | Build development Docker image |
-| `just run-dev` | Run development container with volume mount |
-| `just enter-dev` | Enter development container |
-| `just make` | Build PX4 (inside container) |
-| `just clean-image` | Remove Docker images |
-| `just clean-px4` | Remove containers |
-| `just clean-dev` | Remove development image |
-| `just df-docker` | Check Docker disk usage |
-
-### 💡 Development Tips
-
-- ✅ **Live Updates**: Code changes are immediately available (no rebuild needed)
-- ✅ **Persistent State**: Container persists across restarts
-- ✅ **Detach Mode**: Use `Ctrl-P` + `Ctrl-Q` to detach without stopping
-- ⚠️ **Dependencies**: Rebuild image only when updating system packages
-- 💾 **Git Safe**: Workspace is automatically configured as safe directory
-
-### 🐛 Troubleshooting
-
-<details>
-<summary><b>Container exits immediately</b></summary>
-
-Use `Ctrl-P` + `Ctrl-Q` to detach instead of `exit`. Or run with `-d` flag for background mode.
-
-</details>
-
-<details>
-<summary><b>Permission denied errors</b></summary>
-
-The `px4` user in the container should match your host UID (1000). Check with:
-```bash
-id -u  # On host
-```
-
-</details>
-
-<details>
-<summary><b>GPU not working in Gazebo</b></summary>
-
-Ensure NVIDIA Docker runtime is installed:
-```bash
-docker info | grep -i runtime
-```
-
-</details>
+- [WarriorHanamy](https://github.com/WarriorHanamy) - Maintainer
+- [Arclunar](https://github.com/Arclunar) (H.W. ZHENG) - Original author
 
 ---
 
@@ -194,7 +99,7 @@ docker info | grep -i runtime
 
 ### 🌟 If this project helps you, please give it a ⭐ Star!
 
-**Made with ❤️ by [Arclunar](https://github.com/Arclunar)**
+**Made with ❤️ by [WarriorHanamy](https://github.com/WarriorHanamy)**
 
 [⬆ Back to Top](#-px4-neupilot)
 

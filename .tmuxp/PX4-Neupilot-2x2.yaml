@@ -1,0 +1,13 @@
+session_name: PX4-Neupilot-2x2
+windows:
+  - window_name: main
+    layout: tiled
+    panes:
+      - shell_command:
+        -
+      - shell_command:
+        -
+      - shell_command:
+        -
+      - shell_command:
+        -
